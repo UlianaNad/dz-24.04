@@ -1,13 +1,15 @@
-//console.log('work');
-
-
 const loadItems = document.querySelector('.items');
 
-//console.log('work!');
+
+const getPriceFilter = async(price) => {
+    const result = await axios.get('/prod/list', {params:{price}});
+    console.log('result', result);
+};
 const run = async () => {
     const {data} = await axios.get('/prod/list/');
    // console.log({data});
-
+   
+   
     let html = '';
     data.forEach((item,index) => {
         html += `
@@ -28,5 +30,17 @@ const run = async () => {
         `;
     });
     loadItems.innerHTML = html;
-}
+};
 run();
+
+const elPriceFilter = document.querySelector('select[name=price]');
+elPriceFilter.addEventListener('change', async (ev) => {
+    const value = ev.target.value;
+    getPriceFilter(value);
+    run();
+});
+
+
+
+
+

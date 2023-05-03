@@ -6,29 +6,32 @@ const products = require('./products');
 
 router.get('/products', (req, res) => {
     res.render('page');
-    //console.log(req.params.id)
 });
 
 router.get('/products/:id', (req, res) => {
-    //console.log(req.query, req.params.id)
+    let data = products.items;
+
     res.render('page');
-    console.log(req.params.id)
+    //console.log(req.query.price);
+
+   
 }); 
 
 router.get('/prod/list', (req,res) =>{
+   
     let data = products.items;
-    //console.log(data);
-    console.log(req.params.name)
-    if(req.query.price === 'min') {
-        data.sort((a, b) => a.price - b.price);
-        //console.log('min', data)
-    }
-    if(req.query.price === 'max') {
-        data.sort((a, b) => b.price - a.price);
-        //console.log('max', data)
-    }
-    
+    console.log(req.query.price );
 
+    if(req.query.price === 'minmax') {
+        data.sort((a, b) => a.price - b.price);
+
+    }
+    if(req.query.price === 'maxmin') {
+        data.sort((a, b) => b.price - a.price);
+   
+    }
+    //console.log('data', data);
+    
     res.json(data);
 });
 
